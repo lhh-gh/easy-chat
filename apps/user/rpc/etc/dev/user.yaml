@@ -1,0 +1,21 @@
+Name: user.rpc
+ListenOn: 0.0.0.0:10000
+Etcd:
+  Hosts:
+    - 119.91.151.46:3379
+  Key: user.rpc
+
+Mysql:
+  DataSource: root:easy-chat@tcp(119.91.151.46:13306)/easy-chat?charset=utf8mb4
+
+Cache:
+  - Host: 119.91.151.46:16379
+    #  redis 集群模式 node模式
+    Type: node
+    Pass: easy-chat
+
+Jwt:
+  # jwt 密钥
+  AccessSecret: imooc.com
+  # jwt 过期时间
+  AccessExpire: 8640000
