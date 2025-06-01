@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/zeromicro/go-zero/core/stores/cache"
+	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/zrpc"
 )
 
@@ -16,8 +17,8 @@ import (
 //   - AccessExpire: JWT过期时间(秒)
 type Config struct {
 	zrpc.RpcServerConf
-
-	Mysql struct {
+	Redisx redis.RedisConf
+	Mysql  struct {
 		DataSource string
 	}
 

@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"github/lhh-gh/easy-chat/apps/user/rpc/internal/config"
-	"github/lhh-gh/easy-chat/apps/user/rpc/internal/server"
-	"github/lhh-gh/easy-chat/apps/user/rpc/internal/svc"
-	"github/lhh-gh/easy-chat/apps/user/rpc/user"
+	"github/lhh-gh/easy-chat/apps/social/rpc/internal/config"
+	"github/lhh-gh/easy-chat/apps/social/rpc/internal/server"
+	"github/lhh-gh/easy-chat/apps/social/rpc/internal/svc"
+	"github/lhh-gh/easy-chat/apps/social/rpc/social"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -16,7 +16,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-var configFile = flag.String("f", "etc/user.yaml", "the config file")
+var configFile = flag.String("f", "etc/social.yaml", "the config file")
 
 func main() {
 	flag.Parse()
@@ -24,12 +24,9 @@ func main() {
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
 	ctx := svc.NewServiceContext(c)
-	if err := ctx.SetRootToken(); err != nil {
-		panic(err)
-	}
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		user.RegisterUserServer(grpcServer, server.NewUserServer(ctx))
+		social.RegisterSocialServer(grpcServer, server.NewSocialServer(ctx))
 
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)
