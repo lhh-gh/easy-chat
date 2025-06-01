@@ -19,3 +19,8 @@ Jwt:
   AccessSecret: imooc.com
   # jwt 过期时间
   AccessExpire: 8640000
+Redisx:
+  - Host: 119.91.151.46:16379
+    #  redis 集群模式 node模式
+    Type: node
+    Pass: easy-chat
